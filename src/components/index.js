@@ -12,3 +12,6 @@ export { default as SupplyTable } from './Tables/SupplyTable/SupplyTable'
 
 // Tables Items
 export { default as SupplyItem } from './TableItems/SupplyItem/SupplyItem'
+
+// Modal
+export { default as Modal } from './Modal/Modal'
