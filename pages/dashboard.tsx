@@ -5,7 +5,7 @@ import React from 'react'
 import Image from 'next/image'
 
 // Components
-import { NetworkCard } from '../src/components'
+import { NetworkCard, CardContainer } from '../src/components'
 
 import Polygon from '../src/assets/networks/polygon.svg'
 
@@ -38,44 +38,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className={styles.DetailsContainer}>
-          <div className={styles.Pools}>
-            {/* Childs */}
-
-            <h2 className={styles.Title}>Your supplies</h2>
-
-            <p className={styles.Balance}>
-              Balance: <span className={styles.Number}>$4500.00</span>
-            </p>
-
-            {/* <table className={styles.Table}>
-              <tr className={styles.Label}>
-                <th>Asset</th>
-                <th>Balance</th>
-                <th>APY</th>
-              </tr>
-
-              <tr className={styles.Items}>
-                <td className={styles.TokenItem}>
-                  <Image
-                    src={require('../src/assets/tokens/usdt.svg')}
-                    alt={'Network Image'}
-                    className={styles.TokenImage}
-                  />
-                  <p>USDT</p>
-                </td>
-                <td>0.1000000</td>
-                <td>{`< 0.01%`}</td>
-                <td className={styles.ButtonsContainer}>
-                  <button className={styles.Button}>Withdraw</button>
-                  <button className={styles.Button}>Supply</button>
-                </td>
-              </tr>
-            </table> */}
-
-            {/*  */}
-          </div>
-        </div>
+        <CardContainer title='Assets to supply'></CardContainer>
       </div>
     </main>
   )
@@ -168,6 +131,7 @@ const styles = {
   `,
 
   Table: `
+  my-5
   text-left
   `,
   Label: `
