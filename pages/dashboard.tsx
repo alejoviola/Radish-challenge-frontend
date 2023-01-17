@@ -5,7 +5,7 @@ import React from 'react'
 import Image from 'next/image'
 
 // Components
-import { NetworkCard, CardContainer } from '../src/components'
+import { NetworkCard, CardContainer, SupplyTable } from '../src/components'
 
 import Polygon from '../src/assets/networks/polygon.svg'
 
@@ -38,7 +38,9 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <CardContainer title='Assets to supply'></CardContainer>
+        <CardContainer title='Assets to supply'>
+          <SupplyTable />
+        </CardContainer>
       </div>
     </main>
   )
