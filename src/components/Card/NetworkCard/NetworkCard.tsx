@@ -10,7 +10,7 @@ type Props = {
 
 const NetworkCard = ({ name, image }: Props) => {
   return (
-    <div className={styles.Card}>
+    <div className={styles.Container}>
       <Image
         src={image}
         alt={'Network Image'}
@@ -25,7 +25,7 @@ const NetworkCard = ({ name, image }: Props) => {
 }
 
 const styles = {
-  Card: `
+  Container: `
   flex
   p-6
   items-center
@@ -48,9 +48,9 @@ const styles = {
   `,
   NetworkImage: `
   mr-5
-  sm:w-10
-  md:w-11
-  lg:w-12
+  w-10
+  md:w-12
+  lg:w-14
   `,
   CardTitle: `
   text-base
