@@ -1,6 +1,7 @@
-import Image from 'next/image'
 import React from 'react'
 import SupplyItem from '../../TableItems/SupplyItem/SupplyItem'
+
+import tokens from '../../../web3/data/Pools.json'
 
 const SupplyTable = () => {
   return (
@@ -14,7 +15,9 @@ const SupplyTable = () => {
       </thead>
 
       <tbody>
-        <SupplyItem />
+        {tokens.map((value, i) => {
+          return <SupplyItem name={value.name} key={i} />
+        })}
       </tbody>
     </table>
   )

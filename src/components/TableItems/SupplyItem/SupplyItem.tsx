@@ -1,7 +1,11 @@
 import Image from 'next/image'
 import React from 'react'
 
-const SupplyItem = () => {
+type SupplyProps = {
+  name: string
+}
+
+const SupplyItem = ({ name }: SupplyProps) => {
   return (
     <tr className={styles.Items}>
       <td className={styles.TokenItem}>
@@ -10,7 +14,7 @@ const SupplyItem = () => {
           alt={'Network Image'}
           className={styles.TokenImage}
         />
-        <p>USDT</p>
+        <p>{name}</p>
       </td>
       <td>0.0000000</td>
       <td>{`< 0.01%`}</td>

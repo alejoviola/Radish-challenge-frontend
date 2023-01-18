@@ -1,8 +1,13 @@
 import React from 'react'
 import { useModal } from '../../hooks/useModal'
+import { IoCloseOutline } from 'react-icons/io5'
 
-const Modal = () => {
-  const { isOpen } = useModal()
+type ModalProps = {
+  title: string
+}
+
+const Modal = ({ title }: ModalProps) => {
+  const { isOpen, CloseModal } = useModal()
 
   return isOpen ? (
     <div
@@ -11,7 +16,14 @@ const Modal = () => {
       }}
       className={styles.Container}
     >
-      <div className={styles.Modal}></div>
+      <div className={styles.Modal}>
+        <div className={styles.Header}>
+          <h2 className={styles.Title}>{title}</h2>
+          <button className={styles.Close} onClick={CloseModal}>
+            <IoCloseOutline color='white' size={30} />
+          </button>
+        </div>
+      </div>
     </div>
   ) : null
 }
@@ -29,8 +41,37 @@ const styles = {
   `,
   Modal: `
     w-96
-    h-96
-    bg-red-200
+    flex
+    p-6
+    
+    sm:text-1xl
+    md:text-2xl
+    lg:text-3xl
+    font-bold 
+    text-gray-900 
+    tracking-tight
+  
+    border 
+    border-gray-200 
+    rounded-lg 
+    shadow-md
+  
+    dark:text-white
+    dark:bg-gray-800 
+    dark:border-gray-700
+  `,
+  Header: `
+    flex
+    flex-row
+    items-center
+    justify-between
+    w-full
+  `,
+  Title: `
+    text-2xl
+  `,
+  Close: `
+    h-8
   `,
 }
 
