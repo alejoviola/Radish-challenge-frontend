@@ -18,7 +18,7 @@ Your goal is to create a platform with at least 2(`ETH, USDC or DAI`) AAVE/Compo
 
 ## What we expect the app to do
 
-- Users can connect/disconnect using their wallet (We suggest using Rainbowkit)
+- Users can connect/disconnect using their wallet (We suggest using Rainbowkit) ✅
 - Users can see a list of pools they can deposit assets to
 - Users can approve the deposit of assets for a specific pool (see https://eips.ethereum.org/EIPS/eip-2612)
 - I can see the APY for the list of pools
