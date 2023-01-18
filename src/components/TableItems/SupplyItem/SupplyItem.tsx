@@ -1,11 +1,33 @@
+import React, { useState, useEffect, useContext } from 'react'
 import Image from 'next/image'
-import React from 'react'
 
-type SupplyProps = {
-  name: string
-}
+import { Contract } from '../../../web3/types/ABI'
+import { useAccount, useBalance, useContractRead } from 'wagmi'
+import { useModal } from '../../../hooks/useModal'
+import { ModalContext } from '../../../context/Modal/ModalContext'
 
-const SupplyItem = ({ name }: SupplyProps) => {
+const SupplyItem = ({ name, address, ABI, isMatic }: Contract) => {
+  const [walletBalance, setBalance] = useState('0.00')
+
+  const { address: wallet } = useAccount()
+  const { data: balance } = useBalance({
+    address: wallet,
+  })
+  const { data } = useContractRead({
+    address,
+    abi: ABI,
+    functionName: 'balanceOf',
+    args: [wallet],
+  })
+
+  useEffect(() => {
+    isMatic
+      ? balance && setBalance(Number(balance.formatted).toFixed(4))
+      : data && setBalance(Number(data._hex / Math.pow(10, 18)).toFixed(4))
+  }, [isMatic, balance, data])
+
+  const { OpenModal } = useContext(ModalContext)
+
   return (
     <tr className={styles.Items}>
       <td className={styles.TokenItem}>
@@ -16,10 +38,12 @@ const SupplyItem = ({ name }: SupplyProps) => {
         />
         <p>{name}</p>
       </td>
-      <td>0.0000000</td>
+      <td>{walletBalance}</td>
       <td>{`< 0.01%`}</td>
       <td className={styles.ButtonsContainer}>
-        <button className={styles.Button}>Supply</button>
+        <button className={styles.Button} onClick={OpenModal}>
+          Supply
+        </button>
       </td>
     </tr>
   )

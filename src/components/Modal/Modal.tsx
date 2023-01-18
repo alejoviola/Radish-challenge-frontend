@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useModal } from '../../hooks/useModal'
 import { IoCloseOutline } from 'react-icons/io5'
+import { ModalContext } from '../../context/Modal/ModalContext'
 
 type ModalProps = {
   title: string
 }
 
 const Modal = ({ title }: ModalProps) => {
-  const { isOpen, CloseModal } = useModal()
+  const { isOpen, CloseModal } = useContext(ModalContext)
 
   return isOpen ? (
     <div

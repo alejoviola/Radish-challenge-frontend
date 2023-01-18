@@ -14,6 +14,7 @@ import {
 
 import Polygon from '../src/assets/networks/polygon.svg'
 import { useContractReads } from 'wagmi'
+import ModalProvider from '../src/context/Modal/ModalContext'
 
 export default function Dashboard() {
   const { data } = useContractReads({
@@ -256,42 +257,44 @@ export default function Dashboard() {
   console.log(data)
 
   return (
-    <>
-      <Modal title='Supply' />
+    <ModalProvider>
+      <>
+        <Modal title='Supply' />
 
-      <main className={styles.Container}>
-        <div className={styles.Dashboard}>
-          <div className={styles.CardContainer}>
-            <NetworkCard name='Polygon Mumbai Testnet' image={Polygon} />
-          </div>
+        <main className={styles.Container}>
+          <div className={styles.Dashboard}>
+            <div className={styles.CardContainer}>
+              <NetworkCard name='Polygon Mumbai Testnet' image={Polygon} />
+            </div>
 
-          <div className={styles.DetailsContainer}>
-            <div className={styles.Card}>
-              <div className={styles.Detail}>
-                <h4 className={styles.CardTitle}>Net Worth</h4>
-                <p>
-                  <span>$</span>0.94
-                </p>
-              </div>
-              <div className={styles.Detail}>
-                <h4 className={styles.CardTitle}>Net APY</h4>
-                <p>
-                  -0.05<span>%</span>
-                </p>
-              </div>
-              <div className={styles.Detail}>
-                <h4 className={styles.CardTitle}>Health factor</h4>
-                <p>1.08</p>
+            <div className={styles.DetailsContainer}>
+              <div className={styles.Card}>
+                <div className={styles.Detail}>
+                  <h4 className={styles.CardTitle}>Net Worth</h4>
+                  <p>
+                    <span>$</span>0.94
+                  </p>
+                </div>
+                <div className={styles.Detail}>
+                  <h4 className={styles.CardTitle}>Net APY</h4>
+                  <p>
+                    -0.05<span>%</span>
+                  </p>
+                </div>
+                <div className={styles.Detail}>
+                  <h4 className={styles.CardTitle}>Health factor</h4>
+                  <p>1.08</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <CardContainer title='Assets to supply'>
-            <SupplyTable />
-          </CardContainer>
-        </div>
-      </main>
-    </>
+            <CardContainer title='Assets to supply'>
+              <SupplyTable />
+            </CardContainer>
+          </div>
+        </main>
+      </>
+    </ModalProvider>
   )
 }
 

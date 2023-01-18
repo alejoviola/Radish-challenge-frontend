@@ -16,7 +16,15 @@ const SupplyTable = () => {
 
       <tbody>
         {tokens.map((value, i) => {
-          return <SupplyItem name={value.name} key={i} />
+          return (
+            <SupplyItem
+              key={i}
+              name={value.name}
+              address={value.address as `0x${string}`}
+              abi={value.ABI}
+              isMatic={value.isMatic}
+            />
+          )
         })}
       </tbody>
     </table>
