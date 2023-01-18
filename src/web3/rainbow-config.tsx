@@ -1,13 +1,13 @@
 import { getDefaultWallets } from '@rainbow-me/rainbowkit'
 import { configureChains } from 'wagmi'
-import { polygonMumbai } from 'wagmi/chains'
+import { goerli } from 'wagmi/chains'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
 
 export const { chains, provider } = configureChains(
-  [polygonMumbai],
+  [goerli],
   [
-    alchemyProvider({ apiKey: 'IohimwgW6vird0qU2tBaRmOmUOVT2hyc' }),
+    alchemyProvider({ apiKey: 'Kqsfli5w2Mt6GqQgtIovPCxr27jDfp6O' }),
     publicProvider(),
   ],
 )

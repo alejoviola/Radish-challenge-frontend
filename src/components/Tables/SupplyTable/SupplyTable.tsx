@@ -2,6 +2,7 @@ import React from 'react'
 import SupplyItem from '../../TableItems/SupplyItem/SupplyItem'
 
 import tokens from '../../../web3/data/Pools.json'
+import { ABI } from '../../../web3/types/ABI'
 
 const SupplyTable = () => {
   return (
@@ -21,7 +22,7 @@ const SupplyTable = () => {
               key={i}
               name={value.name}
               address={value.address as `0x${string}`}
-              abi={value.ABI}
+              ABI={value.ABI as ABI[]}
               isMatic={value.isMatic}
             />
           )

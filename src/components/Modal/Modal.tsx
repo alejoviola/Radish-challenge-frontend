@@ -1,14 +1,20 @@
-import React, { useContext } from 'react'
-import { useModal } from '../../hooks/useModal'
+import React, { useContext, useRef } from 'react'
 import { IoCloseOutline } from 'react-icons/io5'
 import { ModalContext } from '../../context/Modal/ModalContext'
+import {
+  useContractWrite,
+  usePrepareContractWrite,
+  useContractReads,
+} from 'wagmi'
+import { BigNumber } from 'ethers'
+import SupplyModal from '../ModalViews/SupplyModal.tsx/SupplyModal'
 
 type ModalProps = {
   title: string
 }
 
-const Modal = ({ title }: ModalProps) => {
-  const { isOpen, CloseModal } = useContext(ModalContext)
+const Modal = () => {
+  const { isOpen, title, CloseModal, view } = useContext(ModalContext)
 
   return isOpen ? (
     <div
@@ -24,6 +30,8 @@ const Modal = ({ title }: ModalProps) => {
             <IoCloseOutline color='white' size={30} />
           </button>
         </div>
+
+        {view === 'Supply' && <SupplyModal />}
       </div>
     </div>
   ) : null
@@ -41,8 +49,9 @@ const styles = {
     bg-slate-600
   `,
   Modal: `
-    w-96
     flex
+    flex-col
+    w-1/2
     p-6
     
     sm:text-1xl
@@ -67,6 +76,7 @@ const styles = {
     items-center
     justify-between
     w-full
+    mb-5
   `,
   Title: `
     text-2xl
