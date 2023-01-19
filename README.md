@@ -30,7 +30,7 @@ Your goal is to create a platform with at least 2(`ETH, USDC or DAI`) AAVE/Compo
 🧐 We do know this will be easy for you… so, to make the app even cooler for users you can pick one, or two of these:
 
 - As a user, I can see my possible earnings based on the APY (see https://governance.aave.com/t/how-is-the-amount-of-interest-determined-when-withdrawing/11221)
-- As a user, I can withdraw assets from pools I’ve deposited assets to
+- As a user, I can withdraw assets from pools I’ve deposited assets to ✅
 - Users can see a summary of their pools, like earnings, deposited balance, or suggest new pools.
 - Add the “Add token to wallet” option, so I can track the pool token within my wallet UI
 
