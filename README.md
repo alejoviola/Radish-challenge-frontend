@@ -14,12 +14,14 @@
 - Add the “Add token to wallet” option, so I can track the pool token within my wallet UI
 
 ## How to Run
-
-### yarn
-### yarn dev
+- yarn
+- yarn dev
 
 ## Network
-Goerli Testnet
+- Goerli Testnet
 
 ## Tokens and Faucet
+- LINK
+- DAI
+
 https://app.aave.com/faucet/
