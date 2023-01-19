@@ -10,56 +10,68 @@ import {
   CardContainer,
   SupplyTable,
   Modal,
+  SupplyItem,
 } from '../src/components'
 
-import Polygon from '../src/assets/networks/polygon.svg'
-import { useContractReads } from 'wagmi'
+import Goerli from '../src/assets/networks/ethereum.svg'
 import ModalProvider from '../src/context/Modal/ModalContext'
 
+import { tokens } from '../src/web3/data/data'
+import { ABI, Contract } from '../src/web3/types/types'
+import YourSupplyItem from '../src/components/TableItems/YourSupplyItem/YourSupplyItem'
+import { useAccount } from 'wagmi'
+
 export default function Dashboard() {
-  return (
+  const { isConnected } = useAccount()
+
+  return isConnected ? (
     <ModalProvider>
       <>
-        <Modal title='Supply' />
+        <Modal />
 
         <main className={styles.Container}>
           <div className={styles.Dashboard}>
             <div className={styles.CardContainer}>
-              <NetworkCard name='Polygon Mumbai Testnet' image={Polygon} />
-            </div>
-
-            <div className={styles.DetailsContainer}>
-              <div className={styles.Card}>
-                <div className={styles.Detail}>
-                  <h4 className={styles.CardTitle}>Net Worth</h4>
-                  <p>
-                    <span>$</span>0.94
-                  </p>
-                </div>
-                <div className={styles.Detail}>
-                  <h4 className={styles.CardTitle}>Net APY</h4>
-                  <p>
-                    -0.05<span>%</span>
-                  </p>
-                </div>
-                <div className={styles.Detail}>
-                  <h4 className={styles.CardTitle}>Health factor</h4>
-                  <p>1.08</p>
-                </div>
-              </div>
+              <NetworkCard name='Goerli Testnet' image={Goerli} />
             </div>
 
             <CardContainer title='Your Supplies'>
-              {/* <SupplyTable /> */}
+              <SupplyTable>
+                {tokens.map(({ token, aToken }, i) => {
+                  return (
+                    <YourSupplyItem
+                      key={i}
+                      token={token as Contract}
+                      aToken={aToken}
+                    />
+                  )
+                })}
+              </SupplyTable>
             </CardContainer>
 
             <CardContainer title='Assets to supply'>
-              <SupplyTable />
+              <SupplyTable>
+                {tokens.map(({ token }, i) => {
+                  return (
+                    <SupplyItem
+                      key={i}
+                      name={token.name}
+                      address={token.address as `0x${string}`}
+                      ABI={token.ABI as ABI[]}
+                      isMatic={token.isMatic}
+                    />
+                  )
+                })}
+              </SupplyTable>
             </CardContainer>
           </div>
         </main>
       </>
     </ModalProvider>
+  ) : (
+    <div className={styles.Container}>
+      <h2 className={styles.Title}>Please, connect your wallet</h2>
+    </div>
   )
 }
 

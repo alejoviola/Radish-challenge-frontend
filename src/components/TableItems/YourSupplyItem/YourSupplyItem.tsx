@@ -1,11 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Image from 'next/image'
 
-import { Contract } from '../../../web3/types/types'
+import { Contract, AContract } from '../../../web3/types/types'
 import { useAccount, useBalance, useContractRead } from 'wagmi'
 import { ModalContext } from '../../../context/Modal/ModalContext'
 
-const SupplyItem = ({ name, address, ABI, isMatic }: Contract) => {
+type Props = {
+  token: Contract
+  aToken: AContract
+}
+
+const YourSupplyItem = ({ token, aToken }: Props) => {
   const [walletBalance, setBalance] = useState('0.00')
 
   const { address: wallet } = useAccount()
@@ -13,17 +18,17 @@ const SupplyItem = ({ name, address, ABI, isMatic }: Contract) => {
     address: wallet,
   })
   const { data } = useContractRead({
-    address: address as `0x${string}`,
-    abi: ABI,
+    address: aToken.address as `0x${string}`,
+    abi: aToken.ABI,
     functionName: 'balanceOf',
     args: [wallet as `0x${string}`],
   })
 
   useEffect(() => {
-    isMatic
+    aToken.isMatic
       ? balance && setBalance(Number(balance.formatted).toFixed(4))
       : data && setBalance(Number(data._hex / Math.pow(10, 18)).toFixed(4))
-  }, [isMatic, balance, data])
+  }, [aToken.isMatic, balance, data])
 
   const { OpenModal } = useContext(ModalContext)
 
@@ -31,13 +36,11 @@ const SupplyItem = ({ name, address, ABI, isMatic }: Contract) => {
     <tr className={styles.Items}>
       <td className={styles.TokenItem}>
         <Image
-          src={require(`../../../assets/tokens/${name.toLowerCase()}.svg`)}
-          width={30}
-          height={30}
+          src={require(`../../../assets/tokens/${token.name.toLowerCase()}.svg`)}
           alt={'Network Image'}
           className={styles.TokenImage}
         />
-        <p>{name}</p>
+        <p>{aToken.name}</p>
       </td>
       <td>{walletBalance}</td>
       <td>{`< 0.01%`}</td>
@@ -45,13 +48,14 @@ const SupplyItem = ({ name, address, ABI, isMatic }: Contract) => {
         <button
           className={styles.Button}
           onClick={() =>
-            OpenModal(`Supply ${name}`, 'Supply', {
-              name,
-              address,
-              ABI,
-              isMatic,
-            })
+            OpenModal(`Widthdraw ${token.name}`, 'Withdraw', token, aToken)
           }
+        >
+          Withdraw
+        </button>
+        <button
+          className={styles.Button}
+          onClick={() => OpenModal(`Supply ${token.name}`, 'Supply', token)}
         >
           Supply
         </button>
@@ -90,4 +94,4 @@ const styles = {
       `,
 }
 
-export default SupplyItem
+export default YourSupplyItem

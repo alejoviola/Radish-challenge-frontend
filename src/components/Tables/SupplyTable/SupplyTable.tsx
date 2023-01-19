@@ -2,9 +2,9 @@ import React from 'react'
 import SupplyItem from '../../TableItems/SupplyItem/SupplyItem'
 
 import tokens from '../../../web3/data/Pools.json'
-import { ABI } from '../../../web3/types/ABI'
+import { ABI } from '../../../web3/types/types'
 
-const SupplyTable = () => {
+const SupplyTable = ({ children }: { children: JSX.Element[] }) => {
   return (
     <table className={styles.Table}>
       <thead>
@@ -15,19 +15,7 @@ const SupplyTable = () => {
         </tr>
       </thead>
 
-      <tbody>
-        {tokens.map((value, i) => {
-          return (
-            <SupplyItem
-              key={i}
-              name={value.name}
-              address={value.address as `0x${string}`}
-              ABI={value.ABI as ABI[]}
-              isMatic={value.isMatic}
-            />
-          )
-        })}
-      </tbody>
+      <tbody>{children}</tbody>
     </table>
   )
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext } from 'react'
-import { Contract } from '../../web3/types/ABI'
+import { Contract, AContract } from '../../web3/types/types'
 
-type Views = 'Supply' | undefined
+type Views = 'Supply' | 'Withdraw' | undefined
 
 type ModalProps = {
   isOpen: boolean
@@ -9,7 +9,8 @@ type ModalProps = {
   OpenModal: (title: string, view: Views, token: Contract) => void
   CloseModal: () => void
   view: Views
-  token: Contract
+  token?: Contract
+  aToken?: AContract
 }
 
 export const ModalContext = createContext<ModalProps>({} as ModalProps)
@@ -19,11 +20,18 @@ const ModalProvider = ({ children }: { children: JSX.Element }) => {
   const [title, setTitle] = useState<string>('Modal')
   const [view, setView] = useState<Views>(undefined)
   const [token, setToken] = useState<Contract>()
+  const [aToken, setAtoken] = useState<AContract>()
 
-  const OpenModal = (title: string, view: Views, token: Contract) => {
+  const OpenModal = (
+    title: string,
+    view: Views,
+    token: Contract,
+    aToken?: AContract,
+  ) => {
     setTitle(title)
     setView(view)
     setToken(token)
+    aToken && setAtoken(aToken)
     setIsOpen(true)
   }
 
@@ -33,7 +41,7 @@ const ModalProvider = ({ children }: { children: JSX.Element }) => {
 
   return (
     <ModalContext.Provider
-      value={{ isOpen, title, OpenModal, CloseModal, view, token }}
+      value={{ isOpen, title, OpenModal, CloseModal, view, token, aToken }}
     >
       {children}
     </ModalContext.Provider>

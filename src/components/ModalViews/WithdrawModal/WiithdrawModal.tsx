@@ -5,32 +5,22 @@ import { Pool_Contract, Pool_ABI } from '../../../web3/data/data'
 import { ModalContext } from '../../../context/Modal/ModalContext'
 import { utils } from 'ethers'
 
-const SupplyModal = () => {
+const WiithdrawModal = () => {
   const { address: userAddress } = useAccount()
-  const { token } = useContext(ModalContext)
+  const { token, aToken } = useContext(ModalContext)
 
   // Modal Logic
   const [amount, setAmount] = useState(0)
-
-  // APPROVE TOKEN
-  const { config } = usePrepareContractWrite({
-    address: token.address as `0x${string}`,
-    abi: token.ABI,
-    functionName: 'approve',
-    args: [Pool_Contract, BigNumber.from(10e14)],
-  })
-  const { data, write } = useContractWrite(config)
 
   // SUPPLY
   const { config: configSupply } = usePrepareContractWrite({
     address: Pool_Contract,
     abi: Pool_ABI,
-    functionName: 'supply',
+    functionName: 'withdraw',
     args: [
-      token.address,
+      token!.address,
       BigNumber.from(utils.parseEther(amount.toString())),
       userAddress as `0x${string}`,
-      0,
     ],
   })
 
@@ -55,24 +45,15 @@ const SupplyModal = () => {
       <div className='flex flex-col justify-center mt-5'>
         <button
           onClick={() => {
-            write?.()
-          }}
-          className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 mb-2 px-4 rounded'
-        >
-          Approve
-        </button>
-
-        <button
-          onClick={() => {
             writeSupply?.()
           }}
           className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
         >
-          Supply
+          Withdraw
         </button>
       </div>
     </div>
   )
 }
 
-export default SupplyModal
+export default WiithdrawModal

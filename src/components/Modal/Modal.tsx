@@ -1,13 +1,8 @@
-import React, { useContext, useRef } from 'react'
+import React, { useContext } from 'react'
 import { IoCloseOutline } from 'react-icons/io5'
 import { ModalContext } from '../../context/Modal/ModalContext'
-import {
-  useContractWrite,
-  usePrepareContractWrite,
-  useContractReads,
-} from 'wagmi'
-import { BigNumber } from 'ethers'
 import SupplyModal from '../ModalViews/SupplyModal.tsx/SupplyModal'
+import WiithdrawModal from '../ModalViews/WithdrawModal/WiithdrawModal'
 
 type ModalProps = {
   title: string
@@ -32,6 +27,7 @@ const Modal = () => {
         </div>
 
         {view === 'Supply' && <SupplyModal />}
+        {view === 'Withdraw' && <WiithdrawModal />}
       </div>
     </div>
   ) : null
